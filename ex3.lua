@@ -1,4 +1,5 @@
 require 'paths'
+require 'nn'
 if (not paths.filep("cifar10torchsmall.zip")) then
     os.execute('wget -c https://s3.amazonaws.com/torch7/data/cifar10torchsmall.zip')
     os.execute('unzip cifar10torchsmall.zip')
@@ -19,3 +20,16 @@ classes =
     'truck'
 }
 print(trainset)
+
+print(#trainset.data)
+
+setmetatable(trainset, 
+    {__index = function(t, i) 
+                    return {t.data[i], t.label[i]} 
+                end}
+);
+trainset.data = trainset.data:double() -- convert the data from a ByteTensor to a DoubleTensor.
+
+function trainset:size() 
+    return self.data:size(1) 
+end
