@@ -16,4 +16,6 @@ net:add(nn.Linear(84, 10))                   -- 10 is the number of outputs of t
 net:add(nn.SoftMax())                     -- converts the output to a log-probability. Useful for classification problems
 input = torch.rand(1,32,32) -- pass a random tensor as input to the network
 output = net:forward(input)
-print(output)
+--print(output)
+m = nn.SpatialConvolution(1,3,2,2) -- learn 3 2x2 kernels
+print("the weight is ",m.weight) -- initially, the weights are randomly initialized
